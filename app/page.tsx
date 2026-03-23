@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-import { AdSlot } from '@/components/ad-slot';
+import AdSlot from '@/components/AdSlot';
 import { getMonthlyFortunes } from '@/lib/fortune';
 import { ZODIAC_INFO, ZODIAC_ORDER } from '@/types/fortune';
 

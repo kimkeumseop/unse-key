@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import { AdSlot } from '@/components/ad-slot';
+import AdSlot from '@/components/AdSlot';
 import { getFortune, starsToString } from '@/lib/fortune';
 import { type Zodiac, ZODIAC_INFO, ZODIAC_ORDER } from '@/types/fortune';
 
@@ -39,15 +39,32 @@ export async function generateMetadata({
 }: FortuneDetailPageProps): Promise<Metadata> {
   if (!isZodiac(params.zodiac)) {
     return {
-      title: '운세를 찾을 수 없습니다 - 운세키'
+      title: '운세를 찾을 수 없습니다'
     };
   }
 
-  const zodiacInfo = ZODIAC_INFO[params.zodiac];
+  const { year, month, zodiac } = params;
+  const zodiacInfo = ZODIAC_INFO[zodiac];
+  const monthNum = Number(month);
 
   return {
-    title: `${params.year}년 ${Number(params.month)}월 ${zodiacInfo.ko} 운세 - 운세키`,
-    description: `${params.year}년 ${Number(params.month)}월 ${zodiacInfo.ko} 운세를 확인하세요. 총운, 애정운, 재물운, 건강운과 이달의 행운 정보를 제공합니다.`
+    title: `${year}년 ${monthNum}월 ${zodiacInfo.ko} 운세`,
+    description: `${year}년 ${monthNum}월 ${zodiacInfo.ko} 운세를 확인하세요. 총운, 애정운, 재물운, 건강운과 이달의 행운 정보를 제공합니다.`,
+    keywords: [
+      `${zodiacInfo.ko}운세`,
+      `${year}년${monthNum}월운세`,
+      `${zodiacInfo.ko}${year}`,
+      '월별운세',
+      '띠별운세'
+    ],
+    openGraph: {
+      title: `${year}년 ${monthNum}월 ${zodiacInfo.ko} 운세 - 운세키`,
+      description: `${year}년 ${monthNum}월 ${zodiacInfo.ko} 운세를 확인하세요.`,
+      url: `https://unse-key.vercel.app/${year}/${month}/${zodiac}`
+    },
+    alternates: {
+      canonical: `https://unse-key.vercel.app/${year}/${month}/${zodiac}`
+    }
   };
 }
 
@@ -58,14 +75,35 @@ export default async function FortuneDetailPage({ params }: FortuneDetailPagePro
 
   const year = Number(params.year);
   const month = Number(params.month);
+  const monthLabel = String(month).padStart(2, '0');
   const zodiac = params.zodiac;
   const zodiacInfo = ZODIAC_INFO[zodiac];
+  const monthNum = Number(params.month);
   const fortune = await getFortune(year, month, zodiac);
-  const title = fortune?.title ?? `${year}년 ${month}월 ${zodiacInfo.ko} 운세`;
+  const title = fortune?.title ?? `${year}년 ${monthNum}월 ${zodiacInfo.ko} 운세`;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: `${year}년 ${monthNum}월 ${zodiacInfo.ko} 운세`,
+    description: fortune?.content_overall ?? `${year}년 ${monthNum}월 ${zodiacInfo.ko} 운세`,
+    url: `https://unse-key.vercel.app/${year}/${monthLabel}/${zodiac}`,
+    publisher: {
+      '@type': 'Organization',
+      name: '운세키',
+      url: 'https://unse-key.vercel.app'
+    },
+    datePublished: `${year}-${monthLabel}-01`,
+    dateModified: new Date().toISOString(),
+    inLanguage: 'ko-KR'
+  };
 
   return (
     <main className="page-shell">
       <div className="detail-layout">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <Link href="/" className="back-link">
           <span aria-hidden="true">←</span>
           메인으로 돌아가기
@@ -78,9 +116,7 @@ export default async function FortuneDetailPage({ params }: FortuneDetailPagePro
             </div>
             <div>
               <h1 className="detail-title">{title}</h1>
-              <p className="meta-line">
-                출생연도 {zodiacInfo.years.join(' · ')}
-              </p>
+              <p className="meta-line">출생연도 {zodiacInfo.years.join(' · ')}</p>
             </div>
           </div>
         </section>
@@ -138,7 +174,8 @@ export default async function FortuneDetailPage({ params }: FortuneDetailPagePro
                   <strong>행운 숫자</strong> {fortune.lucky_numbers.join(', ')}
                 </div>
                 <div className="chip">
-                  <strong>주의 날짜</strong> {fortune.caution_dates.map((date) => `${date}일`).join(', ')}
+                  <strong>주의 날짜</strong>{' '}
+                  {fortune.caution_dates.map((date) => `${date}일`).join(', ')}
                 </div>
               </div>
             </section>
@@ -149,8 +186,8 @@ export default async function FortuneDetailPage({ params }: FortuneDetailPagePro
           <section className="empty-state">
             <h2>이달의 운세를 준비 중입니다</h2>
             <p>
-              아직 {year}년 {month}월 {zodiacInfo.ko} 콘텐츠가 등록되지 않았어요. 곧 업데이트될 수
-              있도록 자리만 먼저 열어두었습니다.
+              아직 {year}년 {monthNum}월 {zodiacInfo.ko} 콘텐츠가 등록되지 않았어요. 곧
+              업데이트될 수 있도록 자리만 먼저 열어두었습니다.
             </p>
           </section>
         )}
@@ -162,7 +199,7 @@ export default async function FortuneDetailPage({ params }: FortuneDetailPagePro
               const info = ZODIAC_INFO[item];
 
               return (
-                <Link key={item} href={`/${year}/${String(month).padStart(2, '0')}/${item}`}>
+                <Link key={item} href={`/${year}/${monthLabel}/${item}`}>
                   <span>
                     {info.emoji} {info.ko}
                   </span>
