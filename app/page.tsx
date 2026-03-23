@@ -117,7 +117,7 @@ export default async function HomePage() {
             overflowWrap: 'break-word'
           }}
         >
-          띠별 흐름을 한눈에 보는 월간 운세 아카이브
+          띠별 흐름을 한눈에 보는 월간 운세
         </h1>
         <p className="hero-copy">
           선택한 달의 12띠 운세를 한눈에 확인하세요. 총운부터 애정운, 재물운, 건강운까지
