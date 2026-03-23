@@ -2,6 +2,8 @@
 
 import { useEffect, useId } from 'react';
 
+import { ADSENSE_CLIENT } from '@/lib/adsense';
+
 declare global {
   interface Window {
     adsbygoogle?: unknown[];
@@ -15,7 +17,7 @@ interface AdSlotProps {
 }
 
 export function AdSlot({ slot, label = '광고 영역', className }: AdSlotProps) {
-  const adClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
+  const adClient = ADSENSE_CLIENT;
   const adId = useId();
 
   useEffect(() => {
@@ -29,14 +31,6 @@ export function AdSlot({ slot, label = '광고 영역', className }: AdSlotProps
       return;
     }
   }, [adClient, adId]);
-
-  if (!adClient) {
-    return (
-      <div className={`ad-slot ad-slot-placeholder ${className ?? ''}`.trim()}>
-        <span>{label}</span>
-      </div>
-    );
-  }
 
   return (
     <div className={`ad-slot ${className ?? ''}`.trim()}>
