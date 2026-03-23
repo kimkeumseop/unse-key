@@ -1,0 +1,512 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@400;700&display=swap');
+
+:root {
+  --bg-primary: #0a0a1f;
+  --bg-secondary: #12122e;
+  --bg-card: #1a1a3e;
+  --bg-card-hover: #22224a;
+  --accent: #8b5cf6;
+  --accent-light: #c9b8ff;
+  --text-primary: #f0eeff;
+  --text-secondary: rgba(240, 238, 255, 0.6);
+  --text-muted: rgba(240, 238, 255, 0.35);
+  --border: rgba(139, 92, 246, 0.25);
+  --border-hover: rgba(139, 92, 246, 0.5);
+  --gold: #f9cb42;
+  --shadow: 0 24px 80px rgba(6, 8, 30, 0.42);
+  --radius-xl: 32px;
+  --radius-lg: 24px;
+  --radius-md: 18px;
+  --max-width: 1180px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Noto Sans KR', sans-serif;
+  min-height: 100vh;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Noto Serif KR', serif;
+  word-break: keep-all;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.site-background {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at top, rgba(139, 92, 246, 0.22), transparent 34%),
+    radial-gradient(circle at 82% 16%, rgba(201, 184, 255, 0.1), transparent 12%),
+    radial-gradient(circle at 16% 84%, rgba(249, 203, 66, 0.08), transparent 16%),
+    linear-gradient(180deg, #0a0a1f 0%, #0d102c 52%, #090b1e 100%);
+}
+
+.site-shell {
+  position: relative;
+  z-index: 1;
+}
+
+.site-header__inner {
+  width: min(calc(100% - 32px), var(--max-width));
+  margin: 0 auto;
+  padding: 18px 0;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand__icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  font-size: 1.45rem;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(249, 203, 66, 0.14));
+  box-shadow: inset 0 0 0 1px rgba(201, 184, 255, 0.18);
+}
+
+.brand__title {
+  display: block;
+  font-size: 1.4rem;
+  letter-spacing: -0.03em;
+}
+
+.brand__subtitle {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+.page-shell {
+  width: min(calc(100% - 32px), var(--max-width));
+  margin: 0 auto;
+  padding: 36px 0 80px;
+}
+
+.hero-card,
+.content-card,
+.fortune-card,
+.score-card,
+.ad-slot,
+.empty-state,
+.month-tab,
+.zodiac-card,
+.chip,
+.info-pill {
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.hero-card,
+.content-card,
+.empty-state {
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)),
+    var(--bg-card);
+}
+
+.hero-card {
+  padding: 28px;
+}
+
+.hero-eyebrow {
+  color: var(--accent-light);
+  font-size: 0.92rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-title,
+.section-title,
+.fortune-title,
+.detail-title {
+  letter-spacing: -0.03em;
+}
+
+.hero-title {
+  margin-top: 14px;
+  font-size: clamp(2.2rem, 5vw, 4.25rem);
+  line-height: 1.08;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.hero-copy,
+.section-copy,
+.fortune-text,
+.empty-state p,
+.meta-line {
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.hero-copy {
+  margin-top: 18px;
+  max-width: 680px;
+  font-size: 1.02rem;
+}
+
+.meta-strip,
+.month-tabs,
+.stats-row,
+.score-grid,
+.chips,
+.link-grid,
+.fortune-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.meta-strip {
+  margin-top: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.content-card {
+  padding: 20px;
+}
+
+.section {
+  margin-top: 28px;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+}
+
+.section-copy {
+  max-width: 620px;
+}
+
+.month-tabs {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.month-tab {
+  display: block;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.03);
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.month-tab:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.month-tab--active {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.28), rgba(255, 255, 255, 0.06));
+  border-color: var(--border-hover);
+}
+
+.month-tab__label {
+  display: block;
+  color: var(--accent-light);
+  font-size: 0.84rem;
+}
+
+.month-tab__value {
+  display: block;
+  margin-top: 8px;
+  font-weight: 700;
+  font-size: 1.06rem;
+}
+
+.fortune-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.zodiac-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  padding: 22px 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0)),
+    var(--bg-card);
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease,
+    background 200ms ease;
+}
+
+.zodiac-card::after {
+  content: '';
+  position: absolute;
+  inset: auto -30px -50px auto;
+  width: 140px;
+  height: 140px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.24), transparent 70%);
+}
+
+.zodiac-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+}
+
+.zodiac-card__emoji {
+  font-size: 2.3rem;
+}
+
+.zodiac-card__title {
+  margin: 14px 0 8px;
+  font-size: 1.35rem;
+}
+
+.zodiac-card__meta {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.zodiac-card__badge {
+  display: inline-flex;
+  margin-top: 18px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(249, 203, 66, 0.12);
+  color: #ffe18c;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.zodiac-card__badge--muted {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+}
+
+.ad-slot {
+  min-height: 138px;
+  border-radius: var(--radius-lg);
+  background: rgba(10, 14, 38, 0.68);
+  overflow: hidden;
+}
+
+.ad-slot-placeholder {
+  display: grid;
+  place-items: center;
+  color: var(--text-secondary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+.detail-layout {
+  display: grid;
+  gap: 28px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent-light);
+  font-weight: 700;
+}
+
+.fortune-card {
+  border-radius: var(--radius-xl);
+  padding: 30px;
+  background:
+    radial-gradient(circle at top right, rgba(249, 203, 66, 0.12), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02)),
+    var(--bg-card);
+}
+
+.fortune-card__hero {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.fortune-card__emoji {
+  display: grid;
+  place-items: center;
+  width: 86px;
+  height: 86px;
+  border-radius: 28px;
+  font-size: 2.9rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.detail-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.meta-line {
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+.score-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.score-card {
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.score-card__label {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.score-card__value {
+  display: block;
+  margin-top: 10px;
+  color: var(--gold);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.fortune-section {
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.fortune-section h2 {
+  margin-bottom: 14px;
+  font-size: 1.5rem;
+}
+
+.fortune-text {
+  white-space: pre-line;
+}
+
+.chips {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.chip,
+.info-pill {
+  border-radius: 999px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.chip strong,
+.info-pill strong {
+  color: var(--accent-light);
+}
+
+.link-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.link-grid a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.link-grid span:last-child {
+  color: var(--text-secondary);
+  font-size: 0.94rem;
+}
+
+.empty-state {
+  padding: 28px;
+}
+
+.empty-state h2 {
+  margin-bottom: 8px;
+}
+
+@media (min-width: 768px) {
+  .page-shell {
+    padding-top: 48px;
+  }
+
+  .fortune-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .link-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .site-header__inner,
+  .page-shell {
+    width: min(calc(100% - 24px), var(--max-width));
+  }
+
+  .hero-card,
+  .fortune-card {
+    padding: 22px;
+  }
+
+  .month-tabs,
+  .score-grid,
+  .link-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .brand__subtitle {
+    font-size: 0.84rem;
+  }
+}
